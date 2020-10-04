@@ -1,3 +1,6 @@
+#[cfg(feature = "const-generics")]
+mod const_generics_impls;
+
 use lib::*;
 
 use de::{
@@ -943,6 +946,7 @@ impl<A> ArrayVisitor<A> {
     }
 }
 
+#[cfg(not(feature = "const-generics"))]
 impl<'de, T> Visitor<'de> for ArrayVisitor<[T; 0]> {
     type Value = [T; 0];
 
@@ -960,6 +964,7 @@ impl<'de, T> Visitor<'de> for ArrayVisitor<[T; 0]> {
 }
 
 // Does not require T: Deserialize<'de>.
+#[cfg(not(feature = "const-generics"))]
 impl<'de, T> Deserialize<'de> for [T; 0] {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -969,6 +974,7 @@ impl<'de, T> Deserialize<'de> for [T; 0] {
     }
 }
 
+#[cfg(not(feature = "const-generics"))]
 macro_rules! array_impls {
     ($($len:expr => ($($n:tt)+))+) => {
         $(
@@ -1047,6 +1053,7 @@ macro_rules! array_impls {
     }
 }
 
+#[cfg(not(feature = "const-generics"))]
 array_impls! {
     1 => (0)
     2 => (0 1)

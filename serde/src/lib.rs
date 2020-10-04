@@ -135,9 +135,10 @@
         must_use_candidate,
     )
 )]
+// Constant generics
+#![cfg_attr(feature = "const-generics", feature(min_const_generics))]
 // Rustc lints.
-#![forbid(unsafe_code)]
-#![deny(missing_docs, unused_imports)]
+#![deny(missing_docs, unused_imports, unsafe_code)]
 
 ////////////////////////////////////////////////////////////////////////////////
 
